@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="outer">
+        <div class="c1">
+            <div class="c2">
+                One Stop Portal for Farmers and Agro-Industries
+
+                <div class="comment">
+                <ul>
+                    <li>Making Farmers Self-Reliant and Globalize their Produce</li>
+                    <li>No need to depend only on mandis and local markets</li>
+                    <li>Cut in post-harvest losses by selling the excess harvest to multiple buyers</li>
+                    <li>Exposing farmers to more industries and boost their confidence, morale and self esteem</li>
+                    <li>Allows farmer to choose the buyer of his choice without approaching them door to door, and get the fair value</li>
+                    <li>Allows industries/factories to choose their raw material from different farmers based on location and quality, instead of depending on only selected ones and strengthen their supply-chain</li>
+                    <li>No influence of middlemen</li>
+                    <li>Overall improvement in the Agricultural Growth and Economy of the Country, benefitting both the farmers and industrialists</li>
+                </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="class1">
+            <div class="c3"><i class="far fa-user-circle"></i><br>
+                <div class="c5">AdminSection</div>
+            </div>
+
+
+            <% if (messages.error) { %>
+                <span id="myid1" style="display: none;"><%=messages.error%></span>
+            <% } %>
+
+
+                    <div class="farmer">
+                        Are you a farmer? Login here before proceeding to your dashboard
+                        <br>
+                        <button class="btn" id="farmer_btn" onclick="pop_farmer()">FARMER</button>
+
+                        <div id="pop_farmer"></div>
+                    </div>
+
+                    <div class="buyer">
+                        You're a buyer right? Login before exploring your feed
+                        <br>
+                        <button class="btn" id="buyer_btn" onclick="pop_buyer()">BUYER</button>
+
+                        <div id="pop_buyer"></div>
+                    </div>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let f1 = 0, f2 = 0, temp = 0;
+
+        try {
+            let errorMessage = document.getElementById("myid1").innerHTML;
+            // console.log(errorMessage);
+            // console.log(errorMessage.charAt(0));
+            if (errorMessage != '') {
+                if (errorMessage.charAt(0) === '0') {
+                    pop_farmer();
+                    document.getElementById("errorF").innerHTML = errorMessage.substring(1);
+                }
+                else if (errorMessage.charAt(0) === '1') {
+                    pop_buyer();
+                    document.getElementById("errorB").innerHTML = errorMessage.substring(1);
+                }
+            }
+        } catch (e) { }
+
+
+        function pop_farmer() {
+            try {
+                document.getElementById("pop_farmer").innerHTML = "";
+                document.getElementById("pop_buyer").innerHTML = ""; f2 = 0;
+                if (f1 == 0) f1 = 10;
+                else { f1 = 0; return; }
+            } catch (e) { }
+
+            const data = `<div class="pop_farmer">
+
+                <div id="errorF"></div>
+
+                <form action="/login" method="post">
+
+                    <div class="sampleFarmer">Sample Mobile No: 1234 & Password: root (You can create your own account also)</div>
+                    <input type="text" name="mobno" id="mobno" placeholder="Mobile number" required inputmode="numeric">
+                    <br><br>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <button class="btn" id="farmer_login">LOGIN</button>
+                </form>
+
+                <a href="/farmer_reg">No Account? Register Now to enjoy our services!</a>
+            </div><br><br>`;
+
+            document.getElementById("pop_farmer").innerHTML = data;
+
+            document.getElementById("farmer_login").style.backgroundColor = "white";
+            document.getElementById("farmer_login").style.color = "green";
+            document.getElementById("farmer_login").style.border = "2px solid green";
+        }
+
+        function pop_buyer() {
+            try {
+                document.getElementById("pop_farmer").innerHTML = "";
+                document.getElementById("pop_buyer").innerHTML = ""; f1 = 0;
+                if (f2 == 0) f2 = 10;
+                else { f2 = 0; return; }
+            } catch (e) { }
+
+            // console.log(f1+" "+f2);
+            const data = `
+                <div class="pop_farmer">
+
+                    <div id="errorB"></div>
+
+                    <form action="/loginBuyer" method="post">
+
+                        <div class="sampleBuyer">Sample Email Id: abc@example.com & Password: abc (You can create your own account also)</div>
+                        <input type="email" id="email" placeholder="Email Id" name="email" required>
+                        <br><br>
+                        <input type="password" id="password" placeholder="Password" name="password" required>
+                        <button class="btn" id="buyer_login">LOGIN</button>
+                    </form>
+    
+                    <a href="/buyer_reg">No Account? Register Now to enjoy our services!</a>
+                </div><br><br>`;
+
+            document.getElementById("pop_buyer").innerHTML = data;
+
+            document.getElementById("buyer_login").style.backgroundColor = "white";
+            document.getElementById("buyer_login").style.color = "green";
+            document.getElementById("buyer_login").style.border = "2px solid green";
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asul&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+
+body{
+    background-image: url("p3.jpg");
+    background-position: center; 
+	background-size: cover;
+    height: 100vh;
+	background-repeat: no-repeat;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+#myform{
+	position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #efffe0b8;
+    padding: 15px 50px;
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
+    border-radius: 20px;
+    font-family: 'Delius', cursive;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #1f6c56;
+}
+
+.input{
+    border: none;
+    border-bottom: 2px dotted #097026;
+    background: #e2ffc800;
+    padding-left: 5px;
+    outline: none;
+    text-align: center;
+    height: 30px;
+    width: 200px;
+    font-family: 'Zilla Slab', serif;
+    font-size: 12pt; 
+    margin-top: 15px;
+    font-family: 'Delius', cursive;
+    color: #3d8354;
+    font-weight: bold;
+}
+
+.c4{
+	color: red;
+	font-weight: bold;
+	font-size: 15pt;
+}
+
+#submit{
+	border:none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	cursor: pointer;
+	color: white;
+    font-family: "monospace";
+    font-weight: bold;
+    background-color: #177e46;
+    font-size: 14pt;
+}
+
+h2{
+	font-size: 22pt;
+	padding: 10px 20px;
+}
+
+.input:focus{
+    border: 2px solid #097026;
+    width: 250px;
+    border-radius: 20px;
+}
+
+#foodCrop, #cashCrop{
+	height: 17px;
+	display: inline-block;
+	margin: 10px;
+	cursor: pointer;
+	outline: none;
+}
+
+.cropType{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    display: inline-block;
+}
+
+.cropType2{
+	display: inline-block;
+	width: fit-content;
+	padding: 0px 20px;
+}
+
+h2{
+	font-family: 'Asul', sans-serif;
+	font-size: 25pt;
+	color: #2c5a40;
+}
+

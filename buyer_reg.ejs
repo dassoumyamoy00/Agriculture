@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>New Buyer Registration</title>
+    <link rel="stylesheet" href="/static/buyer_reg.css">
+</head>
+
+<body>
+    <div class="c2"></div>
+
+    <form id="myform">
+
+        <h2>Register to proceed</h2>
+
+        <br>
+        ORAGNISATION<span class="c4">*</span><br>
+        <input type="text" name="name" id="name" placeholder="Enter the organisation name" required><br>
+
+        <br>
+        EMAIL<span class="c4">*</span><br>
+        <input type="email" name="email" id="email" placeholder="Enter the email id" required><br>
+
+        <br>
+        CONTACT<br>
+        <input type="text" name="mobno" id="mobno" placeholder="Enter the contact no"><br>
+
+        <br>
+        LICENSE<br>
+        <input type="text" name="license" id="license" placeholder="Enter any govt. registration number""><br>
+        
+        <br>
+        ADDRESS<span class=" c4">*</span><br>
+        <textarea type="text" name="address" id="address" required placeholder="Type full address"></textarea><br>
+
+
+        <br>
+        STATE<span class="c4">*</span><br>
+        <input id="state" autoComplete="on" list="options" placeholder="Choose the State" onchange="myfun()" required />
+        <datalist id="options">
+            <% india.states.forEach((item)=> { %>
+                <option value="<%= item.state %>">
+                    <%= item.state %>
+                </option>
+                <% }) %>
+        </datalist>
+
+        <br><br>
+        DISTRICT<span class="c4">*</span><br>
+        <input id="district" autoComplete="on" list="options_dist"  placeholder="Choose your District" required /> 
+            <datalist id="options_dist">
+                <div id="idDiv">
+                    <option value="---Choose correct state from dropdown---"></option>
+                </div>
+            </datalist>
+
+        <br><br>
+        PINCODE<span class="c4">*</span><br>
+        <input type="number" name="pincode" id="pincode" placeholder="Enter the pincode" required class="c1"
+            max="999999" min="100000"><br>
+
+        <br>
+        PASSWORD<span class="c4">*</span><br>
+        <input type="password" name="password" id="password" placeholder="Set new password" required>
+
+        <br><br>
+        CONFIRM PASSWORD<span class="c4">*</span><br>
+        <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm password" required
+            onkeypress="callme(event)"><br>
+        <div id="check" style="color: red;"></div>
+
+        <button name="submit" id="submit" class="c3">REGISTER</button>
+
+    </form>
+
+
+    <form method="get" id="redirectform">
+        <button id="redirectbtn" style="display: none;">Submit</button>
+    </form>
+
+
+
+    <script>
+        const form = document.getElementById("myform");
+        form.addEventListener("submit", submitDetails);
+
+        async function myfun() 
+        {
+            const stateName = document.getElementById("state").value;
+
+            document.getElementById("district").value = "";
+
+            const result = await fetch("/getDistrict", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ state: stateName })
+            });
+
+            const dist = await result.json();
+
+            let div = document.createElement("div");
+            div.setAttribute("id", "idDiv");
+
+            // console.log("Hello");
+            if(dist.length === 0)
+            {
+                let myop = document.createElement("option");
+                myop.setAttribute("value", "---Choose correct state from dropdown---");
+                div.appendChild(myop);
+            }
+
+            for (let i = 0; i < dist.length; ++i) {
+                let myop = document.createElement("option");
+                myop.setAttribute("value", dist[i]);
+                myop.setAttribute("id", i);
+                div.appendChild(myop);
+            }
+
+            document.getElementById("options_dist").replaceChild(div, document.getElementById("idDiv"));
+
+        }
+
+        function callme(e) {
+
+            const password = document.getElementById("password").value;
+            //console.log(password);
+            const keynum = String.fromCharCode(e.keyCode);
+            let temp = document.getElementById("cnfpassword").value + keynum;
+            //console.log(temp);
+            if (temp != password) document.getElementById("check").innerHTML = "Password doesn't match!";
+            else document.getElementById("check").innerHTML = "";
+
+        }
+
+        async function submitDetails() {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const mobno = document.getElementById("mobno").value;
+            const license = document.getElementById("license").value;
+            const address = document.getElementById("address").value;
+            const state = document.getElementById("state").value;
+            const district = document.getElementById("district").value;
+            const pincode = document.getElementById("pincode").value;
+            const password = document.getElementById("password").value;
+
+            const result1 = await fetch("/checkValidity", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ state: state, district: district })
+            });
+
+            if(!result1.json.status) { alert("Choose Correct State and District from the dropdown"); return false;}
+
+
+            if (document.getElementById("cnfpassword").value != password) {
+                document.getElementById("check").innerHTML = "Password doesn't match!";
+                document.getElementById("cnfpassword").focus();
+                return false;
+            }
+
+            //console.log(name);
+            const result = await fetch("/registerBuyerSuccess", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, mobno, license, address, state, district, pincode, password })
+            });
+
+            const st = await result.json();
+
+            if (st.status == 200) {
+                if (st.flag) {
+                    document.getElementById("redirectform").setAttribute("action", "/");
+                    document.getElementById("redirectbtn").click();
+                }
+                else {
+                    alert("Sorry! Email already registered");
+                    document.getElementById("redirectform").setAttribute("action", "/buyer_reg");
+                    document.getElementById("redirectbtn").click();
+                }
+            }
+            else {
+                document.getElementById("redirectform").setAttribute("action", "/buyer_reg");
+                document.getElementById("redirectbtn").click();
+            }
+
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

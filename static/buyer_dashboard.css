@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Podkova&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marmelad&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Brawler&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Radley&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Suez+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vidaloka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kreon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Average&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Festive&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    background-image: url("z2.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.dashboard{
+    float: left;
+    cursor: pointer;
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+    outline: none;
+    font-size: 25pt;
+    color: #ffffffe6;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-family: 'Lobster', cursive;
+}
+
+.fas.fa-home{
+    color: #fffffff5;
+    font-size: 25px;
+    padding-right: 10px;
+}
+
+
+.fas.fa-sign-out-alt{
+    color: #ffffffd6;
+}
+
+.welcome{
+    float: right;
+    margin-top: 10px;
+    font-size: 20pt;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    padding-right: 30px;
+}
+
+.logout{
+    float: right;
+    border: none;
+    background-color: rgba(0, 255, 255, 0);
+    outline: none;
+    margin-top: 25px;
+    margin-right: 20px;
+    padding: 0px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.entries{
+    padding-top: 70px;
+    text-align: center;
+}
+
+.row{
+    background-color: #fff0c4e8;
+    background-size: cover;
+    max-width: 60vw;
+    padding: 15px;
+    padding-right: 20px;
+    margin: 20px auto;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    text-align: left;
+    padding-left: 30px;
+    font-family: 'Source Serif Pro', serif;
+    font-size: 15pt;
+    color: #4a4545;
+}
+
+.moreDetails{
+    outline: none;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #f7e7c300;
+    text-decoration: underline;
+    color: #8c8c8f;
+    font-family: 'Average', serif;
+    font-size: 12pt;
+    margin-left: -5px;
+}
+
+.state{
+    color: #1d83db;
+    font-family: 'DM Serif Display', serif;
+    font-size: 17pt;
+}
+
+.quantity{
+    color: #f16735 ;
+    font-family: 'Kreon', serif;
+    font-size: 17pt;
+}
+
+.crop{
+    color: #1caf0b;
+    font-family: 'Vidaloka', serif;
+    font-size: 17pt;
+}
+
+.category{
+    color: #ffb13c;
+    font-family: 'Special Elite', cursive;
+    float: right;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.date{
+    font-size: 11pt;
+    color: #6e6e6e;
+}
+
+.details{
+    padding-top: 10px;
+    padding-left: 25px;
+}
+
+.toFill{
+    padding-left: 50px;
+    font-size: 18px;
+}
+
+.address{
+    padding-bottom: 20px;
+}
+
+.name{
+    padding-top: 20px;
+}
+
+.none{
+    font-family: 'Special Elite', cursive;
+    color: white;
+    font-size: 20pt;
+    padding: 100px 100px;
+}
+

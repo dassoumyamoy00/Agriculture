@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Podkova&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marmelad&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Brawler&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Radley&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antic+Slab&display=swap');
+
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+.navbar{
+    background-color: #e90000;
+    height: 50px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.dashboard{
+    left: 50%;
+    position: relative;
+    margin-left: -100px;
+    color: white;
+    font-size: 22pt;
+    font-weight: bold;
+    font-family: 'Brawler', serif;
+    display: inline-block;
+    padding-top: 5px;
+}
+
+#logoutbutton{
+    float: right;
+    padding: 2px 0px;
+    margin-top: -30px;
+    margin-right: 2vw;
+    background-color: inherit;
+    border: none;
+    color: #f5f1f1;
+    font-family: 'Marcellus SC', serif;
+    font-size: 18pt;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+}
+
+.fas.fa-sign-out-alt{
+    background-color: inherit;
+    padding: 0px 10px;
+    color: #f5f1f1;
+}
+
+.welcome{
+    background-image: url("a3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: fit-content;
+}
+
+.welcomeMessage{
+    font-family: 'Podkova', serif;
+    padding: 80px 50px;
+    font-size: 43px;
+    color: #f9c91b;
+}
+
+.w2{
+    font-weight: bold;
+    color: #ffeb00;
+    padding-left: 20px;
+    font-size: 48px;
+}
+
+.instruction{
+    padding: 0px 80px;
+    font-family: 'Marmelad', sans-serif;
+    color: #f7f0bb;
+    font-size: 15pt;
+    font-weight: bold;
+}
+
+#request{
+    margin-top: 70px;
+    margin-left: 50px;
+    padding: 10px 25px;
+    font-size: 20pt;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff00;
+    color: yellow;
+    border: 2px solid yellow;
+    font-family: 'Radley', serif;
+    font-weight: bold;
+    margin-bottom: 70px
+}
+
+#request:hover{
+    padding: 12px 27px;
+    font-size: 22pt;
+}
+
+.prevReq{
+    background-image: url("a5.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.none{
+    text-align: center;
+    font-family: 'Baloo Da 2', cursive;
+    font-size: 23pt;
+    padding-bottom: 100px;
+    
+}
+
+.heading{
+    font-family: 'ZCOOL XiaoWei', serif;
+    margin: 50px 50px;
+    font-size: 32pt;
+    display: inline-block;
+    font-weight: bold;
+}
+
+table{
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+table tr th{
+    font-family: ar cena;
+    font-size: 25px;
+}
+
+
+td:nth-child(1){
+/*     background-color: red; */
+    width: 10vw;
+    text-align: center;
+}
+
+td:nth-child(2){
+/*     background-color: red; */
+    width: 15vw;
+    text-align: left;
+    padding: 20px 15px;
+}
+
+td:nth-child(3){
+/*     background-color: yellow; */
+    width: 12vw;
+    text-align: center;
+    padding: 20px 15px;
+}
+
+td:nth-child(4){
+/*     background-color: yellow; */
+    text-align: center;
+    padding: 20px;
+}
+
+td:nth-child(5){
+/*     background-color: red; */
+    text-align: center;
+    padding: 20px 20px;
+    padding-left: 30px;
+}
+
+
+
+table tr td{
+    font-size: 20px;
+    font-family: 'Antic Slab', serif;
+}
+
+.markAsSoldfalse, .delete{
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    height: 0px;
+    margin: 0px 5px;
+    padding: 0px;
+    font-family: 'Antic Slab', serif;
+    font-size: 20px;
+}
+
+.soldtrue{
+    text-decoration: line-through;
+    color: black;
+}
+
+.markAsSoldtrue{
+    display: none;
+}

@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Spartan&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@1,300&display=swap');
+
+body{
+    background-image: url("b1.jpg");
+    background-position: center; 
+	background-size: cover;
+	background-repeat: no-repeat;
+    font-size: 12pt;
+    font-family: "Spartan";
+    color: #2A293E;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
+}
+
+#myform{
+    background-color: #e4e4e4e4;
+    padding: 15px 100px;
+}
+
+input, textarea{
+    border: none;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 5px;
+    background: #eddae1;
+    padding-left: 5px;
+    outline: none;
+    text-align: center;
+    height: 30px;
+    width: 225px;
+    font-family: 'Zilla Slab', serif;
+    font-size: 12pt; 
+}
+
+input:focus, textarea:focus{
+    border: 3px solid #6bd4b1;
+    width: 250px;
+}
+
+.c2{
+    background-color: #f9a988;
+    height: 15px;
+}
+
+.c3{
+	padding: 8px 15px;
+	margin: 50px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+    background-image: url("b1.jpg");
+    background-position: center; 
+	font-family: "monospace";
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.c4{
+	color: red;
+	font-weight: bold;
+	font-size: 15pt;
+}
+
+h2{
+	font-size: 22pt;
+}

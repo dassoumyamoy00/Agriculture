@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Buyer Feed</title>
+    <link rel="stylesheet" href="/static/buyer_dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="navbar">
+        <form action="/buyer_dashboard" method="get"><button class="dashboard"><i class="fas fa-home"></i>Your Feed</button></form>
+        <form action="/logout" method="post"><button class="logout"><i class="fas fa-sign-out-alt"></i></button></form>
+        <div class="welcome">Welcome, <%= name %></div>
+    </div>
+
+    <div class="entries">
+
+        <% if(resultSet.length != 0) { %>
+
+            <% const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] %>
+
+            <% resultSet.forEach((item)=>{ %>
+
+                <% if(item.sold === false) { %>
+
+                <div class="row">
+                    
+                    <div class="category"><%= item.category %></div>
+
+                    <% let mydate = new Date(item.date) %>
+
+                    <div class="date"><%= months[mydate.getMonth()]+" "+mydate.getDate()+" "+mydate.getFullYear() %></div>
+                    <div class="details">Request from <span class="state"><%= item.state %></span> for the selling of <span class="quantity"><%= item.quantity %> Quintals</span> of <span class="crop"><%= item.crop %></span></div>
+
+                    <span id="site-state" style="display: none;"><%=item.state%></span>
+                    <span id="site-district" style="display: none;"><%=item.district%></span>
+
+                    <button class="moreDetails" onclick='viewDetails("<%=item.farmer_id%>", "<%=item._id%>")' id="button<%=item._id%>">View details</button>
+
+                    <div class="toFill" id="<%=item._id%>"></div>
+
+                </div>
+            <% }})} else { %>
+        
+        <div class="none">No requests submitted yet by any farmer. Please visit again later</div>
+        
+        <% } %>
+
+    </div>
+
+
+    <script>
+
+        async function viewDetails(id, ownid)
+        {
+            // console.log(id);
+
+            if(document.getElementById("button"+ownid).textContent === "Hide details")
+            {
+                document.getElementById(ownid).innerHTML = "";
+                document.getElementById("button"+ownid).textContent = "View details";
+                return;
+            }
+
+            const result = await fetch("/moreDetails", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ myid : id })
+            });
+
+            const data = await result.json();
+
+            let name=document.createElement("div"); name.setAttribute("class", "name"); name.textContent = "Farmer Details: "+data.gender+" "+data.name+" aged "+data.age+" years";
+            document.getElementById(ownid).appendChild(name);
+
+
+            let contact=document.createElement("div"); contact.setAttribute("class", "contact"); 
+            if(data.email != "") contact.textContent = "Contact: "+data.mobno+" / "+data.email;
+            else contact.textContent = "Contact Details: "+data.mobno;
+            document.getElementById(ownid).appendChild(contact);
+
+
+            let address=document.createElement("div"); address.setAttribute("class", "address"); address.textContent = "Field Location: "+data.address+", "+data.village+", "+data.district+", "+data.state+", "+data.pincode;
+            document.getElementById(ownid).appendChild(address);
+            
+            document.getElementById("button"+ownid).textContent = "Hide details";
+
+        }
+
+
+        function hide(ownid)
+        {
+            document.getElementById(ownid).innerHTML = "";
+        }
+
+    </script>
+</body>
+</html>

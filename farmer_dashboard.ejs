@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Farmer Dashboard</title>
+    <link rel="stylesheet" href="/static/farmer_dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="navbar">
+        <span class="dashboard">My Dashboard</span>
+        <form action="/logout" method="POST">
+            <button class="btn" id="logoutbutton"><i class="fas fa-sign-out-alt"></i>Sign Out</button>
+        </form>
+    </div>
+
+    <div class="welcome">
+        <div class="welcomeMessage">
+            <span class="w1">Welcome </span><span class="w2"><%= username %></span>
+        </div>
+
+        <div class="instruction">
+            > Be Independent Be Self-Reliant
+            <br><br>
+            > No need to depend only on mandis and local markets
+            <br><br>
+            > Place a request to stay connected with the buyers 
+            <br><br>
+            > Showcase your hardwork and produce 
+            <br><br>
+            > View your previous requests 
+            <br><br>
+        </div>
+
+        <div class="requestButton">
+            <form action="/farmer_request" method="get">
+                <button class="btn" id="request">Place Request</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="prevReq"> 
+        <span class="heading">Previous Requests</span>
+
+        <% if (resultSet.length>0){ %>
+            <%let i=0%>
+            <% const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] %>
+
+            <table>
+                <tr>
+                    <th>Sl. No.</th>
+                    <th>Crop Requested</th>
+                    <th>Quantity<br>(in Quintals)</th>
+                    <th>Request Date</th>
+                    <th>Action</th>
+                </tr>
+
+            <% resultSet.forEach((item)=>{ %>
+            <% ++i %>
+            <% let mydate = new Date(item.date) %>
+                <tr id='<%=item._id%>' class='sold<%=item.sold%>'>
+                    <td><%= i %></td>
+                    <td><%= item.crop %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= months[mydate.getMonth()]+" "+mydate.getDate()+" "+mydate.getFullYear() %></td>
+                    <td>
+                        <button id="markAsSold@<%=item._id%>" class="markAsSold<%=item.sold%>" onclick="markAsSold('<%=item._id%>')">Mark as sold</button>
+                        <button class="delete" onclick="deleteReq('<%=item._id%>')">Delete Request</button>
+                    </td>
+                </tr> 
+            <%  }) %>
+            </table>
+
+        <% } else{ %>
+            <div class="none">No Requests Placed Yet. Place your first request soon!</div>
+        <% } %>
+        <br>
+    </div>  
+
+
+
+    <script>
+
+        function deleteReq(id)
+        {
+            fetch("/deleteRecord", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ myid : id })
+            });
+
+            document.getElementById(id).style.display = "none";
+        }
+
+        function markAsSold(id)
+        {
+            fetch("/markAsSold", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ myid : id })
+            })
+
+            document.getElementById(id).style.textDecoration = "line-through";
+            document.getElementById("markAsSold@"+id).style.display = "none";
+        }
+
+    </script>
+
+</body>
+</html>

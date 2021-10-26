@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>New Farmer Registration</title>
+    <link rel="stylesheet" href="/static/farmer_reg.css">
+</head>
+
+<body>
+    <div class="c2"></div>
+    <form id="myform">
+
+        <h2>Register to proceed</h2>
+
+        <br>
+        NAME<span class="c4">*</span><br>
+        <input type="text" name="name" id="name" placeholder="Enter your name" required
+            pattern="[a-zA-Z ]{1,}"><br>
+
+        <br>
+        AGE<span class="c4">*</span><br>
+        <input type="number" name="age" id="age" placeholder="Enter your age" required min="10"
+            max="100"><br>
+
+        <br>
+        CONTACT<span class="c4">*</span><br>
+        <input type="text" name="mobno" id="mobno" placeholder="Enter the contact no" required inputmode="numeric"><br>
+
+        <br>GENDER<span class="c4">*</span><br>
+        <div class="c11">
+            <div class="c12"><input type="radio" name="gender" id="male" value="male" class="c10" required>Male</div>
+            <div class="c12"><input type="radio" name="gender" id="female" value="female" class="c10">Female</div>
+            <div class="c12"><input type="radio" name="gender" id="na" value="na" class="c10">Prefer Not To Say</div>
+            <br>
+        </div><br>
+
+        <br>EMAIL<br>
+        <input type="email" name="email" id="email" placeholder="Enter your email id"><br>
+
+        <br>
+        STREET<span class="c4">*</span><br>
+        <textarea type="text" name="address" id="address" required placeholder="Type your full address"></textarea><br>
+
+        <br>
+        VILLAGE/TOWN<span class="c4">*</span><br>
+        <input type="text" name="village" id="village" placeholder="Enter your village" required><br>
+
+        <br>
+        STATE<span class="c4">*</span><br>
+        <input id="state" autoComplete="on" list="options" placeholder="Choose your State" onchange="myfun()" required />
+        <datalist id="options">
+            <% india.states.forEach((item)=> { %>
+                <option value="<%= item.state %>">
+                    <%= item.state %>
+                </option>
+                <% }) %>
+        </datalist>
+
+        <br><br>
+        DISTRICT<span class="c4">*</span><br>
+        <input id="district" autoComplete="on" list="options_dist"  placeholder="Choose your District" required /> 
+            <datalist id="options_dist">
+                <div id="idDiv">
+                    <option value="---Choose correct state from dropdown---"></option>
+                </div>
+            </datalist>
+        
+
+        <br><br>
+        PINCODE<span class="c4">*</span><br>
+        <input type="number" name="pincode" id="pincode" placeholder="Enter your pincode" required max="999999"
+            min="100000"><br>
+
+        <br>
+        PASSWORD<span class="c4">*</span><br>
+        <input type="password" name="password" id="password" placeholder="Set new password" required>
+
+        <br><br>
+        CONFIRM PASSWORD<span class="c4">*</span><br>
+        <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm password" required
+            onkeypress="callme(event)"><br>
+        <div id="check" style="color: red;"></div>
+
+        <button name="submit" id="submit" class="c3">REGISTER</button>
+
+    </form>
+
+
+    <form method="get" id="redirectform">
+        <button id="redirectbtn" style="display: none;">Submit</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("myform");
+        form.addEventListener("submit", submitDetails);
+
+        async function myfun() {
+
+            const stateName = document.getElementById("state").value;
+
+            document.getElementById("district").value = "";
+            // console.log("Hello");
+
+            const result = await fetch("/getDistrict", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ state: stateName })
+            });
+
+            const dist = await result.json();
+
+            let div = document.createElement("div");
+            div.setAttribute("id", "idDiv");
+
+            // console.log("Hello");
+            if(dist.length === 0)
+            {
+                let myop = document.createElement("option");
+                myop.setAttribute("value", "---Choose correct state from dropdown---");
+                div.appendChild(myop);
+            }
+
+            for (let i = 0; i < dist.length; ++i) {
+                let myop = document.createElement("option");
+                myop.setAttribute("value", dist[i]);
+                myop.setAttribute("id", i);
+                div.appendChild(myop);
+                // document.getElementById(i).innerHTML = dist[i];
+            }
+            // console.log(div);
+
+            document.getElementById("options_dist").replaceChild(div, document.getElementById("idDiv"));
+
+        }
+
+
+        function callme(e) {
+            const password = document.getElementById("password").value;
+            //console.log(password);
+            const keynum = String.fromCharCode(e.keyCode);
+            let temp = document.getElementById("cnfpassword").value + keynum;
+            // console.log(temp);
+            if (temp != password) document.getElementById("check").innerHTML = "Password doesn't match!";
+            else document.getElementById("check").innerHTML = "";
+        }
+
+
+        async function submitDetails() {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const mobno = document.getElementById("mobno").value;
+            let gender = "";
+            if (document.getElementById("male").checked) gender = "Mr.";
+            else if (document.getElementById("female").checked) gender = "Mrs.";
+            else gender = "";
+            const email = document.getElementById("email").value;
+            const address = document.getElementById("address").value;
+            const village = document.getElementById("village").value;
+            const state = document.getElementById("state").value;
+            const district = document.getElementById("district").value;
+            const pincode = document.getElementById("pincode").value;
+            const password = document.getElementById("password").value;
+
+            const result1 = await fetch("/checkValidity", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ state: state, district: district })
+            });
+
+            if(!result1.json.status) { alert("Choose Correct State and District from the dropdown"); return false;}
+
+            if (document.getElementById("cnfpassword").value != password) {
+                document.getElementById("check").innerHTML = "Password doesn't match!";
+                document.getElementById("cnfpassword").focus();
+                return false;
+            }
+
+            //console.log(name);
+            const result = await fetch("/registerSuccess", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, age, mobno, gender, email, address, village, state, district, pincode, password })
+            });
+
+            const st = await result.json();
+
+            // console.log(st);
+
+            if (st.status == 200) {
+                if (st.flag) {
+                    document.getElementById("redirectform").setAttribute("action", "/");
+                    document.getElementById("redirectbtn").click();
+                }
+                else {
+                    alert("Sorry! Contact Number already registered");
+                    document.getElementById("redirectform").setAttribute("action", "/farmer_reg");
+                    document.getElementById("redirectbtn").click();
+                }
+            }
+            else {
+                document.getElementById("redirectform").setAttribute("action", "/farmer_reg");
+                document.getElementById("redirectbtn").click();
+            }
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
